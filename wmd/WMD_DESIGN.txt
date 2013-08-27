@@ -1,0 +1,28 @@
+./wmd/UI/PyOSD.py - disabled in 0.1.1 - OSD display of user messages
+./wmd/UI/MatPlotLib.py - disabled in 0.1.1 - MatPlotLib graphing
+./wmd/UI/UIManager.py - Handles different UI modules, for now only PyGame
+./wmd/UI/PyGame.py - This is the main UI, right now it graphs Acc. data
+./wmd/UI/Logger.py - Basic STDOUT logging - set log level in this file
+./wmd/MotionSensing.py - Processes accelerometer data, will feed to Gestures/*
+./wmd/Gestures/GuessOrientation.py - disabled in 0.1.1
+./wmd/Wiimote/Output.py - Talks to backend - what we send to the Wiimote
+./wmd/Wiimote/Backends/DualTCP.py - disabled in 0.1.1 - for external 
+./wmd/Wiimote/Backends/DualUDP.py - disabled in 0.1.1
+./wmd/Wiimote/Backends/PyBlueZ.py - this is the main backed, pybluez
+./wmd/Wiimote/WMManager.py - Manages Input, Output, Backend
+./wmd/Wiimote/Sequencer.py - disabled in 0.1.1
+./wmd/Wiimote/Input.py - WiimoteState, ReportParser - what backend sends us
+./wmd/CommandMapper.py - Maps Wiimote button presses to keypresses and actions
+./wmd/EventBridges/uinputKeymap.py - Keymap maps stuff like 'KEY_A' to key codes
+./wmd/EventBridges/uinput.py - This injects events into the Linux kernel uinput device - used for clicks and key presses
+./wmd/EventBridges/SEP.py - disabled in 0.1.1, used for sending events over TCP
+./wmd/EventBridges/PyXlib.py - used for moving the absolute mouse position in X
+./wmd/EVDispatcher.py - Communication between different parts of WMD modules pass here, and this also loads the different Event Bridges
+./wmd/Common.py - Loaded by most other files, contains log() and defined event names
+./wmd/Config.py - Configuration file.. Need to have it pretty-print itself out in a user config file and verify if variables have changed since the last version
+./wmd/Pointer.py - Everything related to IR-camera pointer control
+./WMD.py - Loads the rest of WMD
+
+WiimoteState (in Input.py) - the State indicates the current state of the Wiimote as influenced by events we cannot control: button state, battery state, accessory connection status.
+
+WiimoteMode (in Output.py) - The Mode indicates the mode we ask the Wiimote to be in. The difference is that we choose the mode, we endure the state.

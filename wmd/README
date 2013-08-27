@@ -1,0 +1,200 @@
+###########################################################
+#######  A LINUX DRIVER FOR THE NINTENDO WII REMOTE  ######             
+##*********************************************************
+##      ___           ___                            
+##     /\  \         /\  \         _____             
+##    _\:\  \       |::\  \       /::\  \            
+##   /\ \:\  \      |:|:\  \     /:/\:\  \           
+##  _\:\ \:\  \   __|:|\:\  \   /:/  \:\__\          
+## /\ \:\ \:\__\ /::::|_\:\__\ /:/__/ \:|__|         
+## \:\ \:\/:/  / \:\~~\  \/__/ \:\  \ /:/  /         
+##  \:\ \::/  /   \:\  \        \:\  /:/  /          
+##   \:\/:/  /     \:\  \        \:\/:/  /           
+##    \::/  /       \:\__\        \::/  /            
+##     \/__/         \/__/         \/__/             
+##
+##     WMD v0.1.2: Wiiwanna Motte Dammiit!
+##     by Francois A. Bradet, aka e-Hernick#wiili@freenode
+##     coded from 2006-12-04 to 2006-12-18 01:30 EDT
+##     with code by Micah Dowty, davr and Marcan
+##     with algorithms by Ian Rickard
+##     share use modify as you wish; CC-PD+GPL2
+##
+##   WMD is a Linux Driver for the Nintendo Wii Remote
+##
+##   WMD lets you use the Wiimote as a mouse
+##
+##   WMD lets you use the Wiimote as a keyboard
+##   WMD lets you use the Wiimote as a vibrator
+##
+##   WMD is dangerous and experimental
+##   WMD could make your Wii explode!
+##   WMD has no warranty other than the CC-PD+GPL2
+##
+
+
+## WARNING: 0.1.1 is still very much untested..
+
+
+## Changelog
+## v0.1.2 Improved PyGame UI
+## v0.1.1 First release of major rewrite.
+## v0.1.0 Major rewrite...
+
+
+## v0.0.4.9 Made Matplotlib (MPL) optional
+##          Should handle OSD and MPL imports better
+
+## v0.0.4.8 Mandatory Matplotlib requirement!
+##          Lag bug fixed, was due to status LEDs
+
+## v0.0.4.5 Startup sequence!
+##          Status LEDs!
+
+## v0.0.4.2 Changelog added
+##          Click lock!
+
+ 
+
+############################################################
+#######  I. INTRODUCTION:   READ ME FIRST OR ELSE  #########
+##**********************************************************
+## It is important that you read this before
+## trying to use WMD, or else you will fail miserably.
+##
+## You need technical knowledge and Linux experience
+## if you are to succeed in installing WMD without help.
+##
+## But more than that, you need to install the following:
+##
+##  **  BlueZ (MUST!)
+##
+##  **  PyBluez 0.9.1 (MUST!)     # aka python-bluez? on ubuntu
+##      http://org.csail.mit.edu/pybluez/release/pybluez-src-0.9.1.tar.gz
+##
+##      To use Xlib event mode   (GOOD)
+##  ++  python-xlib 0.12
+##  ++    with buffer overflow patch (READ SECTION: XLIB)
+##
+##      To use uinput event mode (GOOD)
+##  ++  Linux 2.6 kernel with evdev and uinput modules
+##
+##      To have a GUI and accelerometer graphing (GOOD!)
+##  ++  Pygame!
+##
+##      To have real-time graphs of the accelerometer data (disabled in 0.1.1)
+##  ++  Matplotlib 0.80  // 0.87 and above seem to require a patch for now
+## http://matplotlib.sourceforge.net/
+##
+##      To use the OSD (disabled in 0.1.1)
+##  ++  PyOSD 0.2.14 http://repose.cx/pyosd/
+##
+##      To use uinput events to move the mouse (BAD!)
+##      This hasn't been tested in a while...
+##  ++  Xorg 7.0 with evdev
+##
+## 
+###############
+## SECTION XLIB
+###############
+##
+##   You must used a PATCHED python-xlib 0.12 because the original
+##   has a terrible bug that prevents it from starting with modern Xorg
+##   python-xlib hasn't been maintained in years, but the patch is simple.
+##
+##   First you install python-xlib 0.12
+##
+##   Then you find the file protocol/display.py
+#### locate protocol/display.py | grep -v pyc
+##   /usr/lib/python2.4/site-packages/Xlib/protocol/display.py
+##
+##
+##   Then you check if it's already patched
+#### grep self.socket.recv /usr/lib/python2.4/site-packages/Xlib/protocol/display.py
+##   recv = self.socket.recv(4096)
+##
+##   If the value is 4096, all is good
+##   If the value is 2048, you need to edit the file and change the value to 4096
+##
+##   It's THAT EASY!
+##
+##   On Gentoo, dev-python/python-xlib-0.12-r2 is already patched.
+##
+################
+####
+#### PREFLIGHT CHECK - IF YOU'RE HAVING ANY TROUBLE
+#### RUN THE FOLLOWING COMMANDS AND COMPARE THE OUTPUT
+#### YOU GET TO THE OUTPUT I GOT
+##
+#### gzcat /proc/config.gz | grep -iE "evdev|uinput"
+##   CONFIG_INPUT_EVDEV=y
+##   CONFIG_INPUT_UINPUT=m
+##
+#modprobe uinput
+#modprobe evdev
+#### lsmod | grep uinput
+##   uinput	8832	0
+##
+#### find /dev -name uinput
+##   /dev/uinput
+##   /dev/misc/uinput
+##
+#### locate evdev_drv
+##   /usr/lib/xorg/modules/input/evdev_drv.so
+##
+#### locate bluetooth.py
+##   /usr/lib/python2.4/site-packages/bluetooth.py
+##
+#### grep PyBluez /usr/lib/python2.4/site-packages/bluetooth.py | wc -l
+##   2
+##
+#### hcitool scan | grep Nintendo
+##   00:19:1D:25:16:43       Nintendo RVL-CNT-01
+##
+## WOW I JUST NOTICED THAT I Can actually type while I have a wiimote. 
+## I can simply losen it, and I always feel it but it doesnt disturb me.
+## Except .. if I try to use the mouse. Therefore, I need a micro-LED bar
+## on my monitors if I want this to be reality.
+## You have the wiimote in front of your keyboard, laid out so that the 
+## keys can be used as a second keyboard. You can have a wiimote stand and a
+## better strap too.
+## Technique: hold down with one thumb.
+## It's a THUMB CONTROLLER.
+## And you pick it up with two hands
+## There is practice with the left hand
+## You use it instead of a mouse, train with it
+## With a special LED bar on your monitor, the bottom of it.
+
+### REWRITE CONFIG TREE INTO METACONFIG TREE
+### WITH META-INFORMATION IN COMMENTS
+
+
+# YOU PROBABLY DON'T WANT TO DO THIS:
+## If you want do use XEVDEV IO, you need to install evdev_drv for Xorg
+## You also need to add this section to your xorg.conf
+#
+#  Section "InputDevice"
+# 	Identifier	"Wiimote"
+# 	Driver		"evdev"
+# 	Option		"Name"		"Nintendo Wiimote"
+#  EndSection
+#
+
+## You will also need to modify your ServerLayout section.
+## You must have only one CorePointer, but you can have
+## many AlwaysCore devices. You don't need a Synaptics
+## touchpad, I just have one on my laptop.
+## So this is what the beginning of my xorg.conf looks like:
+#
+#  Section "ServerLayout"
+#  	Identifier      "X.org Configured"
+#  	Screen  0       "Screen0" 		0 0
+# 	InputDevice     "Mouse0"                "CorePointer"
+# 	InputDevice     "Keyboard0"             "CoreKeyboard"
+# 	InputDevice     "Synaptics Touchpad"    "AlwaysCore"
+# 	InputDevice     "Wiimote"               "AlwaysCore"
+#  EndSection
+#
+## Scaling is known to work badly with evdev_drv
+
+

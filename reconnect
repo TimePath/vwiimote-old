@@ -1,0 +1,4 @@
+#!/bin/bash
+MAC=$1
+bluez-test-device remove $MAC
+bluez-simple-agent hci0 $MAC

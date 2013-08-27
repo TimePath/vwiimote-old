@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<record>
+	<attribute id="0x0000">
+		<uint32 value="0x00010000" />
+	</attribute>
+	<attribute id="0x0001">
+		<sequence>
+			<uuid value="0x1124" />
+		</sequence>
+	</attribute>
+	<attribute id="0x0004">
+		<sequence>
+			<sequence>
+				<uuid value="0x0100" />
+				<uint16 value="0x0011" />
+			</sequence>
+			<sequence>
+				<uuid value="0x0011" />
+			</sequence>
+		</sequence>
+	</attribute>
+	<attribute id="0x0005">
+		<sequence>
+			<uuid value="0x1002" />
+		</sequence>
+	</attribute>
+	<attribute id="0x0006">
+		<sequence>
+			<uint16 value="0x656e" />
+			<uint16 value="0x006a" />
+			<uint16 value="0x0100" />
+		</sequence>
+	</attribute>
+	<attribute id="0x0009">
+		<sequence>
+			<sequence>
+				<uuid value="0x1124" />
+				<uint16 value="0x0100" />
+			</sequence>
+		</sequence>
+	</attribute>
+	<attribute id="0x000d">
+		<sequence>
+			<sequence>
+				<sequence>
+					<uuid value="0x0100" />
+					<uint16 value="0x0013" />
+				</sequence>
+				<sequence>
+					<uuid value="0x0011" />
+				</sequence>
+			</sequence>
+		</sequence>
+	</attribute>
+	<attribute id="0x0100">
+		<text value="Nintendo RVL-CNT-01" />
+	</attribute>
+	<attribute id="0x0101">
+		<text value="Nintendo RVL-CNT-01" />
+	</attribute>
+	<attribute id="0x0102">
+		<text value="Nintendo" />
+	</attribute>
+	<attribute id="0x0200">
+		<uint16 value="0x0100" />
+	</attribute>
+	<attribute id="0x0201">
+		<uint16 value="0x0111" />
+	</attribute>
+	<attribute id="0x0202">
+		<uint8 value="0x04" />
+	</attribute>
+	<attribute id="0x0203">
+		<uint8 value="0x33" />
+	</attribute>
+	<attribute id="0x0204">
+		<boolean value="false" />
+	</attribute>
+	<attribute id="0x0205">
+		<boolean value="true" />
+	</attribute>
+	<attribute id="0x0206">
+		<sequence>
+			<sequence>
+				<uint8 value="0x22" />
+				<text encoding="hex" value="05010905a1018510150026ff00750895010600ff09019100851195010901910085129502090191008513950109019100851495010901910085159501090191008516951509019100851795060901910085189515090191008519950109019100851a950109019100852095060901810085219515090181008522950409018100853095020901810085319505090181008532950a0901810085339511090181008534951509018100853595150901810085369515090181008537951509018100853d951509018100853e951509018100853f951509018100c0" />
+			</sequence>
+		</sequence>
+	</attribute>
+	<attribute id="0x0207">
+		<sequence>
+			<sequence>
+				<uint16 value="0x0409" />
+				<uint16 value="0x0100" />
+			</sequence>
+		</sequence>
+	</attribute>
+	<attribute id="0x0208">
+		<boolean value="false" />
+	</attribute>
+	<attribute id="0x0209">
+		<boolean value="true" />
+	</attribute>
+	<attribute id="0x020a">
+		<boolean value="true" />
+	</attribute>
+	<attribute id="0x020b">
+		<uint16 value="0x0100" />
+	</attribute>
+	<attribute id="0x020c">
+		<uint16 value="0x0c80" />
+	</attribute>
+	<attribute id="0x020d">
+		<boolean value="false" />
+	</attribute>
+	<attribute id="0x020e">
+		<boolean value="false" />
+	</attribute>
+</record>
